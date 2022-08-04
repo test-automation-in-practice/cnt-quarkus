@@ -8,7 +8,9 @@ val quarkusPlatformGroupId: String by project
 val quarkusPlatformArtifactId: String by project
 val quarkusPlatformVersion: String by project
 
-val jvmVersion = "17"
+val assertjVersion: String by project
+
+val jvmVersion: String by project
 
 allprojects {
 
@@ -24,11 +26,13 @@ allprojects {
     }
 
     dependencies {
-        implementation(enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}"))
+        implementation(enforcedPlatform("$quarkusPlatformGroupId:$quarkusPlatformArtifactId:$quarkusPlatformVersion"))
         implementation("io.quarkus:quarkus-kotlin")
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
         implementation("io.quarkus:quarkus-arc")
         testImplementation("io.quarkus:quarkus-junit5")
+        testImplementation("org.assertj:assertj-core:$assertjVersion")
+
     }
 
     java.sourceCompatibility = JavaVersion.toVersion(jvmVersion)
