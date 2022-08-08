@@ -1,16 +1,17 @@
 plugins {
-    kotlin("jvm") 
+    kotlin("jvm")
     kotlin("plugin.allopen")
     id("io.quarkus")
 }
 
+val jvmVersion: String by project
+
+val assertjVersion: String by project
+val mockkVersion: String by project
 val quarkusPlatformGroupId: String by project
 val quarkusPlatformArtifactId: String by project
 val quarkusPlatformVersion: String by project
-
-val assertjVersion: String by project
-
-val jvmVersion: String by project
+val quarkusMockkVersion: String by project
 
 allprojects {
 
@@ -30,9 +31,11 @@ allprojects {
         implementation("io.quarkus:quarkus-kotlin")
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
         implementation("io.quarkus:quarkus-arc")
-        testImplementation("io.quarkus:quarkus-junit5")
-        testImplementation("org.assertj:assertj-core:$assertjVersion")
 
+        testImplementation("io.quarkus:quarkus-junit5")
+        testImplementation("io.quarkiverse.mockk:quarkus-junit5-mockk:$quarkusMockkVersion")
+        testImplementation("org.assertj:assertj-core:$assertjVersion")
+        testImplementation("io.mockk:mockk:$mockkVersion")
     }
 
     java.sourceCompatibility = JavaVersion.toVersion(jvmVersion)
