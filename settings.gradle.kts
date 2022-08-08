@@ -20,4 +20,5 @@ pluginManagement {
 val projectName: String by extra
 rootProject.name=projectName
 
+include("examples:caching")
 include("examples:data-jpa-repository")
