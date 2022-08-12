@@ -2,7 +2,6 @@ plugins {
     kotlin("jvm")
     kotlin("plugin.allopen")
     kotlin("plugin.noarg")
-
     id("io.quarkus")
 }
 

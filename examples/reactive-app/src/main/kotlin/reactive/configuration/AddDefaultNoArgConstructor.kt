@@ -1,0 +1,3 @@
+package reactive.configuration
+
+annotation class AddDefaultNoArgConstructor
