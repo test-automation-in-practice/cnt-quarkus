@@ -1,0 +1,5 @@
+cnt:
+  retry:
+    MovieService/getNumberOfMoviesForActor/Retry/maxRetries: 10
+    MovieService/getNumberOfMoviesForActor/Retry/delay: 10
+    MovieService/getNumberOfMoviesForActor/Retry/delayUnit: Seconds

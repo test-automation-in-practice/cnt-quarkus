@@ -1,0 +1,5 @@
+cnt:
+  retry:
+    MovieService/getNumberOfMoviesForActor/Retry/maxRetries: 2
+    MovieService/getNumberOfMoviesForActor/Retry/delay: 5
+    MovieService/getNumberOfMoviesForActor/Retry/delayUnit: Millis
