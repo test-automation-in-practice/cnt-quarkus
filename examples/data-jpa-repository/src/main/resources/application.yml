@@ -1,0 +1,14 @@
+quarkus:
+  datasource:
+    db-kind: postgresql
+  hibernate-orm:
+    database:
+      generation: drop-and-create
+    log:
+      sql: true
+
+  # properties for h2 in memory testing using profile h2-test
+"%h2-test":
+  quarkus:
+    datasource:
+      db-kind: h2
