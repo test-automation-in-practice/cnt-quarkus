@@ -1,6 +1,8 @@
 plugins {
     kotlin("jvm")
     kotlin("plugin.allopen")
+    kotlin("plugin.noarg")
+
     id("io.quarkus")
 }
 
@@ -18,6 +20,7 @@ allprojects {
     apply {
         plugin("org.jetbrains.kotlin.jvm")
         plugin("org.jetbrains.kotlin.plugin.allopen")
+        plugin("org.jetbrains.kotlin.plugin.noarg")
         plugin("io.quarkus")
     }
 
@@ -46,6 +49,10 @@ allprojects {
         annotation("javax.ws.rs.Path")
         annotation("javax.enterprise.context.ApplicationScoped")
         annotation("io.quarkus.test.junit.QuarkusTest")
+    }
+
+    noArg {
+        annotation("io.quarkus.mongodb.panache.common.MongoEntity")
     }
 
     tasks {
