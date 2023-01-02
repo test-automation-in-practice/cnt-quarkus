@@ -1,0 +1,11 @@
+quarkus:
+  log:
+    category:
+      "org.jboss.resteasy.reactive.client.logging":
+        level: DEBUG
+  rest-client:
+    cnt.adapters.restclient.MovieRestClient:
+      read-timeout: 1000
+    logging:
+      scope: request-response
+      body-limit: 500

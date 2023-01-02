@@ -1,0 +1,225 @@
+{
+  "consumer": {
+    "name": "movieClient"
+  },
+  "interactions": [
+    {
+      "description": "GET REQUEST /movie/2 not found",
+      "key": "90a8e1bf",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "test GET movie not found"
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/movie/2"
+      },
+      "response": {
+        "status": 404
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "GET REQUEST /movie/3 Internal Error",
+      "key": "3299e6cc",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "test GET movieById internal error"
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/movie/3"
+      },
+      "response": {
+        "status": 500
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "GET REQUEST /movies empty",
+      "key": "a9be8314",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "test GET movies empty"
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/movies"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "movies": [
+
+            ]
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "GET REQUEST /movies Internal Error",
+      "key": "fedbfd80",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "test GET movies internal error"
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/movies"
+      },
+      "response": {
+        "status": 500
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "GET REQUEST /movies",
+      "key": "57d8332",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "test GET movies"
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/movie/1"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "cast": [
+              {
+                "id": "1",
+                "inAs": "Luke Skywalker",
+                "name": "Marc Hamill"
+              },
+              {
+                "id": "2",
+                "inAs": "Leia Organa",
+                "name": "Carrie Fisher"
+              }
+            ],
+            "id": "1",
+            "publishYear": 1977,
+            "title": "Star Wars Episode IV - A New Hope"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "POST REQUEST /movie internal error",
+      "key": "fcc5037a",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "test POST movie internal error"
+        }
+      ],
+      "request": {
+        "body": {
+          "content": {
+            "cast": [
+
+            ],
+            "id": null,
+            "publishYear": 1977,
+            "title": "Star Wars Episode IV - A New Hope"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "method": "POST",
+        "path": "/movie"
+      },
+      "response": {
+        "status": 500
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "POST REQUEST /movie",
+      "key": "3e289478",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "test POST movie"
+        }
+      ],
+      "request": {
+        "body": {
+          "content": {
+            "cast": [
+
+            ],
+            "id": null,
+            "publishYear": 1977,
+            "title": "Star Wars Episode IV - A New Hope"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "method": "POST",
+        "path": "/movie"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "cast": [
+
+            ],
+            "id": "1",
+            "publishYear": 1977,
+            "title": "Star Wars Episode IV - A New Hope"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    }
+  ],
+  "metadata": {
+    "pact-jvm": {
+      "version": "4.3.17"
+    },
+    "pactSpecification": {
+      "version": "4.0"
+    }
+  },
+  "provider": {
+    "name": "movies"
+  }
+}
