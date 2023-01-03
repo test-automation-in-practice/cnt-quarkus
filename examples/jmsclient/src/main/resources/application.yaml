@@ -1,0 +1,3 @@
+quarkus:
+  qpid-jms:
+    url: amqp://localhost:15672
