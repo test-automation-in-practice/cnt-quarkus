@@ -1,60 +1,19 @@
-# kafka Project
+# Kafka example
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+## Specifications
 
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+MicroProfile Reactive Messaging makes use of and interoperates with two other specifications:
 
-## Running the application in dev mode
+- *Reactive Streams* is a specification for doing asynchronous stream processing with back pressure. It defines a minimal set of interfaces to allow components which do this sort of stream processing to be connected together.
+- *MicroProfile Reactive Streams* Operators is a MicroProfile specification which builds on Reactive Streams to provide a set of basic operators to link different reactive components together and to perform processing on the data which passes between them.
 
-You can run your application in dev mode that enables live coding using:
-```shell script
-./gradlew quarkusDev
-```
+## Configuration
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
+Dev Services for Kafka automatically starts a Kafka broker in dev mode for dev development and when running tests.
+So, you do not have to start a broker manually.
+The application is configured automatically.
+Because starting a Kafka broker can be long, Dev Services for Kafka uses Redpanda, a Kafka compatible broker which starts in ~1 second.
 
-## Packaging and running the application
+## Architecture
 
-The application can be packaged using:
-```shell script
-./gradlew build
-```
-It produces the `quarkus-run.jar` file in the `build/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `build/quarkus-app/lib/` directory.
-
-The application is now runnable using `java -jar build/quarkus-app/quarkus-run.jar`.
-
-If you want to build an _über-jar_, execute the following command:
-```shell script
-./gradlew build -Dquarkus.package.type=uber-jar
-```
-
-The application, packaged as an _über-jar_, is now runnable using `java -jar build/*-runner.jar`.
-
-## Creating a native executable
-
-You can create a native executable using: 
-```shell script
-./gradlew build -Dquarkus.package.type=native
-```
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
-```shell script
-./gradlew build -Dquarkus.package.type=native -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./build/kafka-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/gradle-tooling.
-
-## Related Guides
-
-- Kotlin ([guide](https://quarkus.io/guides/kotlin)): Write your services in Kotlin
-
-## Provided Code
-
-### RESTEasy Reactive
-
-Easily start your Reactive RESTful Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+![Picture of Messaging Kafka Architecture](img.png)
