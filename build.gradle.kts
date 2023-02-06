@@ -74,3 +74,5 @@ allprojects {
         }
     }
 }
+
+defaultTasks("clean", "build")
