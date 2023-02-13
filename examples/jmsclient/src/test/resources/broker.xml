@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns="urn:activemq" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:activemq /schema/artemis-configuration.xsd">
+  <core xmlns="urn:activemq:core">
+    <paging-directory>./target/artemis/paging</paging-directory>
+    <bindings-directory>./target/artemis/bindings</bindings-directory>
+    <journal-directory>./target/artemis/journal</journal-directory>
+    <large-messages-directory>./target/artemis/large-messages</large-messages-directory>
+
+    <max-disk-usage>-1</max-disk-usage>
+    <security-enabled>false</security-enabled>
+
+    <acceptors>
+      <acceptor name="amqp">tcp://localhost:15672?protocols=AMQP</acceptor>
+    </acceptors>
+
+    <addresses>
+      <address name="movie-send">
+        <anycast>
+          <queue name="movie-send" />
+        </anycast>
+      </address>
+      <address name="movie-receive">
+        <anycast>
+          <queue name="movie-receive" />
+        </anycast>
+      </address>
+    </addresses>
+  </core>
+</configuration>
