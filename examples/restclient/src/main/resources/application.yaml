@@ -1,0 +1,4 @@
+quarkus:
+  rest-client:
+    cnt.adapters.restclient.MovieRestClient:
+      url: http://localhost:8081

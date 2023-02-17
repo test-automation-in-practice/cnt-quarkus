@@ -14,3 +14,5 @@ based on our experience in different actual small and large scale projects.
     - [Fault Tolerance](/examples/fault-tolerance)
     - [MongoDB](/examples/mongodb)
     - [Reactive-App](/examples/reactive-app)
+    - [RestClient](/examples/restclient)
+    - [RestClient-Pact](/examples/restclient-pact)

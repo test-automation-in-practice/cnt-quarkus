@@ -71,6 +71,8 @@ allprojects {
                     org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED
                 )
             }
+
+            systemProperty("java.util.logging.manager", "org.jboss.logmanager.LogManager")
         }
     }
 }
