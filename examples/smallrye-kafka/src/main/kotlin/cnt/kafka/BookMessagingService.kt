@@ -11,12 +11,14 @@ import javax.enterprise.context.ApplicationScoped
 
 @ApplicationScoped
 class BookMessagingService(
-    @Channel(BOOK_UPDATED_EVENT) private val bookUpdatedEventEmitter: Emitter<BookUpdatedEvent>
+    @Channel(BOOK_UPDATED_EVENT) private val bookUpdatedEventEmitter: Emitter<BookUpdatedEvent>,
+    @Channel(ERROR_EVENT) private val errorEventEmitter: Emitter<Throwable>
 ) {
 
     companion object {
         const val EDIT_BOOK_TITLE_EVENT = "edit-book-title-event"
         const val BOOK_UPDATED_EVENT = "book-updated-event"
+        const val ERROR_EVENT = "error-event"
     }
 
     private val logger: Logger = LoggerFactory.getLogger(BookMessagingService::class.java)
@@ -26,14 +28,14 @@ class BookMessagingService(
     fun receiveBookTitle(message: Message<EditBookTitleEvent>): CompletionStage<Void> {
         logger.info("Received BookTitle message with title [${message.payload.title}]")
 
-        if (isBookTitleValid(message.payload.title)) {
+        if (isBookTitleInvalid(message.payload.title)) {
             logger.info("Event contains an error")
-            return message.nack(Throwable("Something went wrong"))
+            return message.ack().thenAccept { errorEventEmitter.send(Throwable("Title ${message.payload.title} is invalid")) }
         }
 
         logger.info("Sending new BookEvent")
         return message.ack().thenAccept { bookUpdatedEventEmitter.send(BookUpdatedEvent(message.payload.title)) }
     }
 
-    fun isBookTitleValid(bookTitle: String) = !bookTitle[0].isUpperCase()
+    fun isBookTitleInvalid(bookTitle: String) = !bookTitle[0].isUpperCase()
 }

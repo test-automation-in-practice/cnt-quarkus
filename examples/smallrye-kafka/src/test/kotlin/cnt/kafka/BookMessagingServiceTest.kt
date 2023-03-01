@@ -9,7 +9,9 @@ import io.smallrye.reactive.messaging.providers.connectors.InMemoryConnector
 import io.smallrye.reactive.messaging.providers.connectors.InMemorySink
 import io.smallrye.reactive.messaging.providers.connectors.InMemorySource
 import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.*
 import org.awaitility.Awaitility
+import org.awaitility.Awaitility.*
 import org.eclipse.microprofile.reactive.messaging.spi.Connector
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeAll
@@ -30,11 +32,13 @@ class BookMessagingServiceTest {
 
     private lateinit var editBookTitleTopic: InMemorySource<EditBookTitleEvent>
     private lateinit var bookUpdatedTopic: InMemorySink<BookUpdatedEvent>
+    private lateinit var errorTopic: InMemorySink<Throwable>
 
     @BeforeAll
     fun setup() {
         editBookTitleTopic = inMemoryConnector.source(BookMessagingService.EDIT_BOOK_TITLE_EVENT)
         bookUpdatedTopic = inMemoryConnector.sink(BookMessagingService.BOOK_UPDATED_EVENT)
+        errorTopic = inMemoryConnector.sink(BookMessagingService.ERROR_EVENT)
     }
 
     @BeforeEach
@@ -47,9 +51,9 @@ class BookMessagingServiceTest {
         val editBookTitleEvent = EditBookTitleEvent("How to Test Quarkus Kafka")
         editBookTitleTopic.send(editBookTitleEvent)
 
-        Awaitility.await().until { bookUpdatedTopic.received().size == 1 }
+        await().until { bookUpdatedTopic.received().size == 1 }
 
-        Assertions.assertThat(bookUpdatedTopic.received())
+        assertThat(bookUpdatedTopic.received())
             .hasSize(1)
             .first()
             .returns("How to Test Quarkus Kafka") { it.payload.title }
@@ -60,9 +64,13 @@ class BookMessagingServiceTest {
         val editBookTitleEvent = EditBookTitleEvent("how to Test Quarkus Kafka")
         editBookTitleTopic.send(editBookTitleEvent)
 
-        Awaitility.await().atMost(Duration.ofSeconds(1))
+        await().until { errorTopic.received().size == 1 }
 
-        Assertions.assertThat(bookUpdatedTopic.received()).isEmpty()
+        assertThat(bookUpdatedTopic.received()).isEmpty()
+        assertThat(errorTopic.received())
+            .hasSize(1)
+            .first()
+            .returns("Title how to Test Quarkus Kafka is invalid") { it.payload.message }
     }
 
     class KafkaTestResourceLifecycleManager : QuarkusTestResourceLifecycleManager {
@@ -71,6 +79,7 @@ class BookMessagingServiceTest {
             return mutableMapOf<String, String>().apply {
                 putAll(InMemoryConnector.switchIncomingChannelsToInMemory(BookMessagingService.EDIT_BOOK_TITLE_EVENT))
                 putAll(InMemoryConnector.switchOutgoingChannelsToInMemory(BookMessagingService.BOOK_UPDATED_EVENT))
+                putAll(InMemoryConnector.switchOutgoingChannelsToInMemory(BookMessagingService.ERROR_EVENT))
             }
         }
 
