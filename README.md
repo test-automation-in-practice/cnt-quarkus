@@ -16,3 +16,4 @@ based on our experience in different actual small and large scale projects.
     - [Reactive-App](/examples/reactive-app)
     - [RestClient](/examples/restclient)
     - [RestClient-Pact](/examples/restclient-pact)
+    - [Smallrye-kafka](/examples/smallrye-kafka)
