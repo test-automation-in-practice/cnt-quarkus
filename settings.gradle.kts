@@ -24,6 +24,7 @@ rootProject.name=projectName
 include("examples:caching")
 include("examples:data-jpa-repository")
 include("examples:fault-tolerance")
+include("examples:graphql")
 include("examples:mongodb")
 include("examples:reactive-app")
 include("examples:restclient")
