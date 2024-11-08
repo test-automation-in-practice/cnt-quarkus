@@ -1,16 +1,20 @@
 package reactive.port.rest
 
-import io.quarkus.hibernate.reactive.panache.common.runtime.ReactiveTransactional
-import io.smallrye.mutiny.Multi
+import io.quarkus.hibernate.reactive.panache.common.WithSession
+import io.quarkus.hibernate.reactive.panache.common.WithTransaction
 import io.smallrye.mutiny.Uni
+import jakarta.enterprise.context.ApplicationScoped
+import jakarta.ws.rs.DELETE
+import jakarta.ws.rs.GET
+import jakarta.ws.rs.POST
+import jakarta.ws.rs.PUT
+import jakarta.ws.rs.Path
 import org.jboss.resteasy.reactive.RestPath
 import org.jboss.resteasy.reactive.RestResponse
 import reactive.domain.book.Book
 import reactive.domain.book.BookExternalService
 import reactive.domain.book.BookInternalService
 import java.net.URI
-import javax.enterprise.context.ApplicationScoped
-import javax.ws.rs.*
 
 @Path("/books")
 @ApplicationScoped
@@ -20,12 +24,14 @@ class BookRestController(
 ) {
 
     @GET
-    fun getAllBooks(): Multi<Book> {
+    @WithSession
+    fun getAllBooks(): Uni<List<Book>> {
         return bookInternalService.getAllBooks()
     }
 
     @GET
     @Path("/{id}")
+    @WithSession
     fun getBookById(
         @RestPath("id") id: Long
     ): Uni<RestResponse<Book?>> {
@@ -37,14 +43,16 @@ class BookRestController(
 
     @GET
     @Path("/search/{title}")
+    @WithSession
     fun searchBooksByTitleLike(
         @RestPath("title") title: String
-    ): Multi<Book> {
+    ): Uni<List<Book>> {
         return bookInternalService.findByTitleLike(title)
     }
 
     @GET
     @Path("/isbn/{isbn}")
+    @WithSession
     fun getBookByIsbn(
         @RestPath("isbn") isbn: String
     ): Uni<RestResponse<Book>> {
@@ -55,7 +63,7 @@ class BookRestController(
     }
 
     @POST
-    @ReactiveTransactional
+    @WithTransaction
     fun createNewBook(
         book: Book
     ): Uni<RestResponse<Book>> {
@@ -66,7 +74,7 @@ class BookRestController(
     }
 
     @PUT
-    @ReactiveTransactional
+    @WithTransaction
     fun updateBookById(
         book: Book
     ): Uni<RestResponse<Book>> {
@@ -78,7 +86,7 @@ class BookRestController(
 
     @DELETE
     @Path("/{id}")
-    @ReactiveTransactional
+    @WithTransaction
     fun deleteBookById(
         @RestPath("id") id: Long
     ): Uni<RestResponse<Unit>> {

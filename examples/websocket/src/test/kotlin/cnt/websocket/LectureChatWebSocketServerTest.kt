@@ -8,10 +8,10 @@ import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
 import java.net.URI
 import java.util.concurrent.LinkedBlockingDeque
-import javax.websocket.ClientEndpoint
-import javax.websocket.ContainerProvider
-import javax.websocket.OnMessage
-import javax.websocket.Session
+import jakarta.websocket.ClientEndpoint
+import jakarta.websocket.ContainerProvider
+import jakarta.websocket.OnMessage
+import jakarta.websocket.Session
 
 @QuarkusTest
 class LectureChatWebSocketServerTest {

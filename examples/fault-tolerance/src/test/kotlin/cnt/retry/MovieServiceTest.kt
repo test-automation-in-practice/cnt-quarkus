@@ -7,7 +7,7 @@ import io.quarkiverse.test.junit.mockk.InjectMock
 import io.quarkus.test.junit.QuarkusTest
 import java.io.IOException
 import java.net.ConnectException
-import javax.inject.Inject
+import jakarta.inject.Inject
 import javax.net.ssl.SSLException
 import javax.net.ssl.SSLHandshakeException
 import org.assertj.core.api.Assertions.assertThat

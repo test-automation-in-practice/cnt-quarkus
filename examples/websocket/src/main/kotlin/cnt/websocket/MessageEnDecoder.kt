@@ -6,9 +6,9 @@ import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import java.io.Reader
 import java.io.Writer
-import javax.websocket.Decoder
-import javax.websocket.Encoder
-import javax.websocket.EndpointConfig
+import jakarta.websocket.Decoder
+import jakarta.websocket.Encoder
+import jakarta.websocket.EndpointConfig
 
 
 class MessageEnDecoder

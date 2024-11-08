@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
-import javax.persistence.PersistenceException
-import javax.ws.rs.NotFoundException
+import jakarta.persistence.PersistenceException
+import jakarta.ws.rs.NotFoundException
 
 internal class RestExceptionHandlerTest {
 

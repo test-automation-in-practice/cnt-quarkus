@@ -1,6 +1,6 @@
 package cnt.cache.domain
 
-import javax.enterprise.context.ApplicationScoped
+import jakarta.enterprise.context.ApplicationScoped
 
 @ApplicationScoped
 class MovieClient {

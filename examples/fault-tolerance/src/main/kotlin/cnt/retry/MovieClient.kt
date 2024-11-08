@@ -1,7 +1,7 @@
 package cnt.retry
 
 import java.io.IOException
-import javax.enterprise.context.ApplicationScoped
+import jakarta.enterprise.context.ApplicationScoped
 
 @ApplicationScoped
 class MovieClient {

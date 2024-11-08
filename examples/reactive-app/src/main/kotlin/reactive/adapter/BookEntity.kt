@@ -1,7 +1,7 @@
 package reactive.adapter
 
 import reactive.configuration.AddDefaultNoArgConstructor
-import javax.persistence.*
+import jakarta.persistence.*
 
 @Entity
 @Table(

@@ -2,7 +2,6 @@ package reactive.port.rest
 
 import io.mockk.every
 import io.mockk.mockk
-import io.smallrye.mutiny.Multi
 import io.smallrye.mutiny.Uni
 import io.smallrye.mutiny.helpers.test.UniAssertSubscriber
 import org.hibernate.HibernateException
@@ -14,7 +13,11 @@ import reactive.domain.book.TestBook
 import reactive.subscribeAssert
 import reactive.subscribeRestResponseAssert
 import strikt.api.expectThat
-import strikt.assertions.*
+import strikt.assertions.isEqualTo
+import strikt.assertions.isFalse
+import strikt.assertions.isNotEqualTo
+import strikt.assertions.isNotNull
+import strikt.assertions.isTrue
 
 @Suppress("ReactiveStreamsUnusedPublisher")
 internal class BookRestControllerTest {
@@ -29,25 +32,24 @@ internal class BookRestControllerTest {
 
         @Test
         fun `no books exist - return empty list`() {
-            every { bookInternalService.getAllBooks() } returns Multi.createFrom().empty()
+            every { bookInternalService.getAllBooks() } returns Uni.createFrom().nullItem()
 
             cut.getAllBooks()
                 .subscribeAssert()
                 .assertSubscribed()
                 .assertCompleted()
-                .assertHasNotReceivedAnyItem()
         }
 
         @Test
         fun `books exists - return all books`() {
             val book1 = TestBook.get()
             val book2 = TestBook.get()
-            every { bookInternalService.getAllBooks() } returns Multi.createFrom().items(book1, book2)
+            every { bookInternalService.getAllBooks() } returns Uni.createFrom().item(listOf(book1, book2))
 
             cut.getAllBooks()
-                .subscribeAssert(2)
+                .subscribeAssert()
                 .assertCompleted()
-                .assertItems(book1, book2)
+                .assertItem(listOf(book1, book2))
         }
     }
 
@@ -109,24 +111,23 @@ internal class BookRestControllerTest {
 
         @Test
         fun `do not find any book - return empty list`() {
-            every { bookInternalService.findByTitleLike(any()) } returns Multi.createFrom().empty()
+            every { bookInternalService.findByTitleLike(any()) } returns Uni.createFrom().nullItem()
 
             cut.searchBooksByTitleLike("Quarkus")
-                .subscribeAssert(1)
+                .subscribeAssert()
                 .assertCompleted()
-                .assertHasNotReceivedAnyItem()
         }
 
         @Test
         fun `find two books - return 2 books`() {
             val book1 = TestBook.get()
             val book2 = TestBook.get()
-            every { bookInternalService.findByTitleLike(any()) } returns Multi.createFrom().items(book1, book2)
+            every { bookInternalService.findByTitleLike(any()) } returns Uni.createFrom().item(listOf(book1, book2))
 
             cut.searchBooksByTitleLike("Quarkus")
-                .subscribeAssert(2)
+                .subscribeAssert()
                 .assertCompleted()
-                .assertItems(book1, book2)
+                .assertItem(listOf(book1, book2))
         }
     }
 

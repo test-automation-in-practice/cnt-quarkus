@@ -5,17 +5,19 @@ import io.mockk.mockk
 import io.quarkus.hibernate.reactive.panache.PanacheQuery
 import io.smallrye.mutiny.Multi
 import io.smallrye.mutiny.Uni
+import io.smallrye.mutiny.helpers.test.UniAssertSubscriber
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.Timeout
 import reactive.domain.book.Book
 import reactive.domain.book.TestBook
 import reactive.subscribeAssert
 import java.time.Duration
+import java.util.concurrent.TimeUnit
 
 @Suppress("ReactiveStreamsUnusedPublisher")
 internal class BookPostgresInternalServiceTest {
 
-    private val panacheQuery: PanacheQuery<BookEntity> = mockk()
     private val bookEntityRepository: BookEntityRepository = mockk()
     private val cut = BookPostgresInternalService(bookEntityRepository)
 
@@ -27,42 +29,22 @@ internal class BookPostgresInternalServiceTest {
 
         @Test
         fun `no books - return emptyList`() {
-            every { bookEntityRepository.findAll(any()) } returns panacheQuery
-            every { panacheQuery.stream<BookEntity>() } returns Multi.createFrom().empty()
+            every { bookEntityRepository.listAll() } returns Uni.createFrom().nullItem()
 
             cut.getAllBooks()
-                .subscribeAssert(1)
+                .subscribeAssert()
                 .assertCompleted()
-                .assertHasNotReceivedAnyItem()
+                .assertItem(null)
         }
 
         @Test
         fun `return all books`() {
-            every { bookEntityRepository.findAll(any()) } returns panacheQuery
-            every { panacheQuery.stream<BookEntity>() } returns Multi.createFrom().items(bookEntity1, bookEntity2)
+            every { bookEntityRepository.listAll() } returns Uni.createFrom().item(listOf(bookEntity1, bookEntity2))
 
             cut.getAllBooks()
-                .subscribeAssert(2)
+                .subscribeAssert()
                 .assertCompleted()
-                .assertItems(asBook(bookEntity1), asBook(bookEntity2))
-        }
-
-        @Test
-        fun `timeout - complete`() {
-            val multi = Multi.createFrom().empty<BookEntity>()
-            val delayedUni = Uni.createFrom().nullItem<BookEntity>().onItem().delayIt().by(Duration.ofMillis(11000))
-            val delayedMulti = multi.onItem().call { _ ->
-                // Delay the emission until the returned uni emits its item
-                delayedUni
-            }
-
-            every { bookEntityRepository.findAll(any()) } returns panacheQuery
-            every { panacheQuery.stream<BookEntity>() } returns delayedMulti
-
-            cut.getAllBooks()
-                .subscribeAssert(1)
-                .assertCompleted()
-                .assertHasNotReceivedAnyItem()
+                .assertItem(listOf(asBook(bookEntity1), asBook(bookEntity2)))
         }
     }
 
@@ -95,24 +77,21 @@ internal class BookPostgresInternalServiceTest {
 
         @Test
         fun `books do exists - return books`() {
-            every { bookEntityRepository.findByTitle("Qua") } returns panacheQuery
-            every { panacheQuery.stream<BookEntity>() } returns Multi.createFrom().items(bookEntity1, bookEntity2)
+            every { bookEntityRepository.findByTitle("Qua").list<BookEntity>() } returns Uni.createFrom().item(listOf(bookEntity1, bookEntity2))
 
             cut.findByTitleLike("Qua")
-                .subscribeAssert(2)
+                .subscribeAssert()
                 .assertCompleted()
-                .assertItems(asBook(bookEntity1), asBook(bookEntity2))
+                .assertItem(listOf(asBook(bookEntity1), asBook(bookEntity2)))
         }
 
         @Test
         fun `book does not exist - return empty`() {
-            every { bookEntityRepository.findByTitle("Qua") } returns panacheQuery
-            every { panacheQuery.stream<BookEntity>() } returns Multi.createFrom().empty()
+            every { bookEntityRepository.findByTitle("Qua").list<BookEntity>() } returns Uni.createFrom().nullItem()
 
             cut.findByTitleLike("Qua")
-                .subscribeAssert(1)
-                .assertCompleted()
-                .assertHasNotReceivedAnyItem()
+                .subscribeAssert()
+                .assertFailed()
         }
     }
 

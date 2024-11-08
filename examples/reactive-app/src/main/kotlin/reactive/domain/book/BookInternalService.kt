@@ -1,13 +1,12 @@
 package reactive.domain.book
 
-import io.smallrye.mutiny.Multi
 import io.smallrye.mutiny.Uni
 
 interface BookInternalService {
 
-    fun getAllBooks(): Multi<Book>
+    fun getAllBooks(): Uni<List<Book>>
 
-    fun findByTitleLike(title: String): Multi<Book>
+    fun findByTitleLike(title: String): Uni<List<Book>>
 
     fun updateBook(book: Book): Uni<Book>
 

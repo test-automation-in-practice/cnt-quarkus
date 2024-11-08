@@ -7,7 +7,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import java.util.UUID
-import javax.inject.Inject
+import jakarta.inject.Inject
 import javax.sql.DataSource
 
 /**

@@ -1,31 +1,27 @@
 package reactive.adapter
 
-import io.quarkus.panache.common.Sort
-import io.smallrye.mutiny.Multi
 import io.smallrye.mutiny.Uni
+import jakarta.enterprise.context.ApplicationScoped
 import reactive.domain.book.Book
 import reactive.domain.book.BookInternalService
 import java.time.Duration
-import javax.enterprise.context.ApplicationScoped
 
 @ApplicationScoped
 class BookPostgresInternalService(
     private val bookEntityRepository: BookEntityRepository
 ) : BookInternalService {
 
-    private companion object {
-        const val ID = "id"
-    }
-
-    override fun getAllBooks(): Multi<Book> {
+    override fun getAllBooks(): Uni<List<Book>> {
+        // Usually you would get a stream of elements. But with Quarkus 3 they removed the support for streams/multi for the panache repository.
+        // For more information see: https://github.com/quarkusio/quarkus/wiki/Migration-Guide-3.0#support-of-multi
         return bookEntityRepository
-            .findAll(Sort.by(ID)).stream<BookEntity>()
-            .map { it.toBook() }
+            .listAll()
+            .map { it.map { it.toBook() } }
             .ifNoItem()
-            .after(Duration.ofMillis(10000))
+            .after(Duration.ofMillis(5000))
             .fail()
             .onFailure()
-            .recoverWithCompletion()
+            .recoverWithNull()
     }
 
     override fun getBookById(id: Long): Uni<Book?> {
@@ -34,11 +30,9 @@ class BookPostgresInternalService(
             .onItem().ifNotNull().transform { it.toBook() }
     }
 
-    override fun findByTitleLike(title: String): Multi<Book> {
+    override fun findByTitleLike(title: String): Uni<List<Book>> {
         return bookEntityRepository
-            .findByTitle(title)
-            .stream<BookEntity>()
-            .map { it.toBook() }
+            .findByTitle(title).list<BookEntity>().map { it.map { it.toBook() } }
     }
 
     override fun updateBook(book: Book): Uni<Book> {

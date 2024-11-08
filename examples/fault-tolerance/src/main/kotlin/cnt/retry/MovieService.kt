@@ -1,6 +1,6 @@
 package cnt.retry
 
-import javax.enterprise.context.ApplicationScoped
+import jakarta.enterprise.context.ApplicationScoped
 import javax.net.ssl.SSLException
 import org.eclipse.microprofile.faulttolerance.Retry
 
