@@ -15,8 +15,8 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import util.*
-import javax.inject.Inject
-import javax.ws.rs.ProcessingException
+import jakarta.inject.Inject
+import jakarta.ws.rs.ProcessingException
 
 @QuarkusTest
 @TestProfile(WiremockTestProfile::class)

@@ -1,8 +1,8 @@
 package util
 
 import io.quarkus.test.junit.QuarkusTest
-import javax.enterprise.inject.Stereotype
-import javax.transaction.Transactional
+import jakarta.enterprise.inject.Stereotype
+import jakarta.transaction.Transactional
 
 @QuarkusTest
 @Stereotype

@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
 import util.*
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 @ExtendWith(PactConsumerTestExt::class)
 @PactTestFor(providerName = "movies", port = "8081", )

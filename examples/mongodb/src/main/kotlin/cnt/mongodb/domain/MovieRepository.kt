@@ -1,7 +1,7 @@
 package cnt.mongodb.domain
 
 import io.quarkus.mongodb.panache.PanacheMongoRepository
-import javax.enterprise.context.ApplicationScoped
+import jakarta.enterprise.context.ApplicationScoped
 
 @ApplicationScoped
 class MovieRepository : PanacheMongoRepository<Movie> {

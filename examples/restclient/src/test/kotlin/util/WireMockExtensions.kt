@@ -6,7 +6,7 @@ import com.github.tomakehurst.wiremock.core.WireMockConfiguration
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager.TestInjector
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager.TestInjector.AnnotatedAndMatchesType
-import javax.ws.rs.core.MediaType.APPLICATION_JSON
+import jakarta.ws.rs.core.MediaType.APPLICATION_JSON
 
 class WireMockExtensions : QuarkusTestResourceLifecycleManager {
 

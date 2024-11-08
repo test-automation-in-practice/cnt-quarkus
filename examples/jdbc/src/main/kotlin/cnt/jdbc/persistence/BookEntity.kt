@@ -1,8 +1,8 @@
 package cnt.jdbc.persistence
 
 import io.quarkus.hibernate.orm.panache.kotlin.PanacheEntityBase
-import javax.persistence.Entity
-import javax.persistence.Id
+import jakarta.persistence.Entity
+import jakarta.persistence.Id
 
 @Entity(name = "book")
 class BookEntity(

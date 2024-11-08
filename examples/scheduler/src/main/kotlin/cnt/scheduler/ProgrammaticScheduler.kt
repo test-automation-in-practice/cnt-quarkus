@@ -10,8 +10,8 @@ import org.quartz.SimpleScheduleBuilder.simpleSchedule
 import org.quartz.TriggerBuilder.newTrigger
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import javax.enterprise.context.ApplicationScoped
-import javax.enterprise.event.Observes
+import jakarta.enterprise.context.ApplicationScoped
+import jakarta.enterprise.event.Observes
 
 /**
  * This [ProgrammaticScheduler] will add a scheduler programmatically via the quartz library

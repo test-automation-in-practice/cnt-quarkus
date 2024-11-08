@@ -1,7 +1,7 @@
 package cnt.jpa.domain
 
 import io.quarkus.hibernate.orm.panache.kotlin.PanacheRepository
-import javax.enterprise.context.ApplicationScoped
+import jakarta.enterprise.context.ApplicationScoped
 
 @ApplicationScoped
 class MovieRepository : PanacheRepository<Movie> {

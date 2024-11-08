@@ -6,10 +6,10 @@ import org.eclipse.microprofile.rest.client.inject.RestClient
 import reactive.configuration.AddDefaultNoArgConstructor
 import reactive.domain.book.Book
 import reactive.domain.book.BookExternalService
-import javax.enterprise.context.ApplicationScoped
-import javax.ws.rs.GET
-import javax.ws.rs.Path
-import javax.ws.rs.QueryParam
+import jakarta.enterprise.context.ApplicationScoped
+import jakarta.ws.rs.GET
+import jakarta.ws.rs.Path
+import jakarta.ws.rs.QueryParam
 
 @ApplicationScoped
 class BookReactiveHttpClientExternalService(

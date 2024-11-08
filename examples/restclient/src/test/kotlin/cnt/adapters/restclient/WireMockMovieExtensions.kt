@@ -2,7 +2,7 @@ package cnt.adapters.restclient
 
 import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.client.WireMock
-import javax.ws.rs.core.MediaType
+import jakarta.ws.rs.core.MediaType
 
 fun WireMockServer.stubGetMovies(statusCode: Int, responseBody: String? = null) {
     if (responseBody == null) {

@@ -1,7 +1,7 @@
 package cnt.cache.domain
 
 import io.quarkus.cache.CacheResult
-import javax.enterprise.context.ApplicationScoped
+import jakarta.enterprise.context.ApplicationScoped
 
 @ApplicationScoped
 class MovieAccessor(private val movieClient: MovieClient) {

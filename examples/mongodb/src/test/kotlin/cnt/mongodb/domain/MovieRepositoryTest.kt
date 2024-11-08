@@ -1,7 +1,7 @@
 package cnt.mongodb.domain
 
 import io.quarkus.test.junit.QuarkusTest
-import javax.inject.Inject
+import jakarta.inject.Inject
 import org.assertj.core.api.Assertions.assertThat
 import org.bson.types.ObjectId
 import org.junit.jupiter.api.BeforeEach

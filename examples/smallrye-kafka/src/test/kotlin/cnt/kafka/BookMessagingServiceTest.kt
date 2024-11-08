@@ -5,21 +5,17 @@ import cnt.kafka.domain.EditBookTitleEvent
 import io.quarkus.test.common.QuarkusTestResource
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager
 import io.quarkus.test.junit.QuarkusTest
-import io.smallrye.reactive.messaging.providers.connectors.InMemoryConnector
-import io.smallrye.reactive.messaging.providers.connectors.InMemorySink
-import io.smallrye.reactive.messaging.providers.connectors.InMemorySource
-import org.assertj.core.api.Assertions
-import org.assertj.core.api.Assertions.*
-import org.awaitility.Awaitility
-import org.awaitility.Awaitility.*
+import io.smallrye.reactive.messaging.memory.InMemoryConnector
+import io.smallrye.reactive.messaging.memory.InMemorySink
+import io.smallrye.reactive.messaging.memory.InMemorySource
+import jakarta.inject.Inject
+import org.assertj.core.api.Assertions.assertThat
+import org.awaitility.Awaitility.await
 import org.eclipse.microprofile.reactive.messaging.spi.Connector
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
-import java.time.Duration
-import javax.inject.Inject
 
 @QuarkusTest
 @QuarkusTestResource(BookMessagingServiceTest.KafkaTestResourceLifecycleManager::class)

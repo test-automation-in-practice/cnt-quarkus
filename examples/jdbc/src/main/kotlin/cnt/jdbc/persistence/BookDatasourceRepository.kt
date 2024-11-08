@@ -2,10 +2,10 @@ package cnt.jdbc.persistence
 
 import cnt.jdbc.model.Book
 import java.sql.PreparedStatement
-import javax.enterprise.context.ApplicationScoped
-import javax.inject.Inject
+import jakarta.enterprise.context.ApplicationScoped
+import jakarta.inject.Inject
 import javax.sql.DataSource
-import javax.transaction.Transactional
+import jakarta.transaction.Transactional
 
 /**
  * This is a custom CRUD repository for selecting and manipulating book in the database.
