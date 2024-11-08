@@ -31,7 +31,7 @@ allprojects {
     dependencies {
         implementation(enforcedPlatform("$quarkusPlatformGroupId:$quarkusPlatformArtifactId:$quarkusPlatformVersion"))
         implementation("io.quarkus:quarkus-kotlin")
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+        implementation(kotlin("stdlib-jdk8"))
         implementation("io.quarkus:quarkus-arc")
         implementation("io.quarkus:quarkus-config-yaml")
 
@@ -54,12 +54,14 @@ allprojects {
         annotation("io.quarkus.mongodb.panache.common.MongoEntity")
     }
 
-    tasks {
-
-        withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-            kotlinOptions.jvmTarget = jvmVersion
-            kotlinOptions.javaParameters = true
+    kotlin {
+        jvmToolchain(17)
+        compilerOptions {
+            javaParameters = true
         }
+    }
+
+    tasks {
 
         withType<Test> {
 
