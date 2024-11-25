@@ -12,6 +12,7 @@ based on our experience in different actual small and large scale projects.
     - [Caching](/examples/caching)
     - [Panache JPA with Repository Pattern](/examples/data-jpa-repository)
     - [Fault Tolerance](/examples/fault-tolerance)
+    - [GraphQL](/examples/graphql)
     - [MongoDB](/examples/mongodb)
     - [Reactive-App](/examples/reactive-app)
     - [RestClient](/examples/restclient)
